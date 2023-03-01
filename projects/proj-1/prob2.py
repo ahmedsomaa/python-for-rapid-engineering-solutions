@@ -14,14 +14,10 @@ from sklearn.model_selection import train_test_split    # splits database
 # parameters for each algorithm
 DT_DEPTH = 6                                            # decision tree depth
 RF_TREES = 11                                           # random forest trees
-# logistic regression c value
-LR_C_VAL = .25
-# support vector machine c value
-SVM_C_VAL = .25
-# k-nearest neighbors neighs
-KNN_NEIGHBORS = 1
-# perceptron max iterations
-PPN_MAX_ITERATIONS = 7
+LR_C_VAL = .25                                          # logistic regression c value
+SVM_C_VAL = .25                                         # support vector machine c value
+KNN_NEIGHBORS = 1                                       # k-nearest neighbors neighs
+PPN_MAX_ITERATIONS = 7                                  # perceptron max iterations
 
 # csv data file name
 FILE_NAME = 'heart1.csv'
