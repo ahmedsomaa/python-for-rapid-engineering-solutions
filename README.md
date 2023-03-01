@@ -17,3 +17,5 @@ A repo for Arizona State University EEE 591 Python for Rapid Engineering Solutio
    1.3 [Homework 3](./homeworks/hw-3/)
 
 2. **Projects**
+
+   1.1 [Project 1](./projects/proj-1/)
