@@ -82,7 +82,7 @@ def main():
     print(cov_matrix)
 
     # create the pair plot
-    # draw_pair_plot(df)
+    draw_pair_plot(df)
 
 # call project entry poitn
 main()
