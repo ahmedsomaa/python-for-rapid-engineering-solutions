@@ -111,7 +111,7 @@ def support_vector_machine(x_trn_std, x_tst_std, y_trn, y_tst, c_val):
     ), test_acc, len(y_combined), combined_samples, combined_acc)
 
 ##################################################################################
-# decision_tree:: perform analysis using decision tree         #
+# decision_tree:: perform analysis using decision tree                           #
 ##################################################################################
 def decision_tree(x_trn, x_tst, y_trn, y_tst, depth, cols):
     tree = DecisionTreeClassifier(
