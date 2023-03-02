@@ -3,6 +3,7 @@ import pandas as pd                                 # for data frames
 import seaborn as sns                               # for data visualization
 import matplotlib.pyplot as plt                     # for plotting
 
+TOP = 10
 FILE_NAME = 'heart1.csv'
 VARIABLE_TO_PREDICT = 'a1p2'
 
@@ -27,7 +28,7 @@ def correlation(df):
 
     # return high correlated variables, 
     # and also the highly correlated variables with {VARIABLE_TO_PREDICT}
-    return corr_unstack.head(), corr_unstack[VARIABLE_TO_PREDICT].head()
+    return corr_unstack.head(TOP), corr_unstack[VARIABLE_TO_PREDICT].head(TOP)
 
 
 ##################################################################################
@@ -37,7 +38,21 @@ def covariance(df):
     # create the covariance matrix
     # take the absolute value since large negative are as useful as large positive
     cov = df.cov().abs()
-    return cov
+    print('\n[Table 4]: covariance of each variable with all other variables\n')
+    print(cov)
+
+    # clear redundant values, since correlation with itself is always 1
+    cov *= np.tri(*cov.values.shape, k=-1).T
+
+    # stack values so they can be sorted
+    cov_unstack = cov.unstack()
+
+    # sort values in descending order to get the variables with highest correlation
+    cov_unstack.sort_values(inplace=True, ascending=False)
+
+    # return high variables with high covariance,
+    # and also the variables with high covariance with {VARIABLE_TO_PREDICT}
+    return cov_unstack.head(TOP), cov_unstack[VARIABLE_TO_PREDICT].head(TOP)
 
 ##################################################################################
 # has_null_values:: checks if a data frame has null values                       #
@@ -77,12 +92,15 @@ def main():
     print(highly_corr_predict)
 
     # print covariance
-    cov_matrix = covariance(df)
-    print('\n[Table 4]: cross covariance matrix')
-    print(cov_matrix)
+    highly_cov, highly_cov_predict = covariance(df)
+    print('\n[Table 5]: variables with high covariance\n')
+    print(highly_cov)
+
+    print(f'\n[Table 6]: variables with high covariance with {VARIABLE_TO_PREDICT}\n')
+    print(highly_cov_predict)
 
     # create the pair plot
-    draw_pair_plot(df)
+    # draw_pair_plot(df)
 
 # call project entry poitn
 main()
