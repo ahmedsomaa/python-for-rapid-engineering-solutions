@@ -31,7 +31,7 @@ def print_method_header(num, method):
     print('----------------------------------------------')
 
 ##################################################################################
-# print_analysis_results:: print the results of analysi                          #
+# print_analysis_results:: print the results of analysis                         #
 ##################################################################################
 def print_analysis_results(test_sam, test_miss, test_acc, combined_sam, combined_miss, combined_acc):
     print('\nNumber in test: ', test_sam)
