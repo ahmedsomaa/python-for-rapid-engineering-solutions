@@ -3,9 +3,9 @@ import pandas as pd                                 # for data frames
 import seaborn as sns                               # for data visualization
 import matplotlib.pyplot as plt                     # for plotting
 
-TOP = 10
-FILE_NAME = 'heart1.csv'
-VARIABLE_TO_PREDICT = 'a1p2'
+TOP = 10                                            # top 10 for corr & cov
+FILE_NAME = 'heart1.csv'                            # name of file to read
+VARIABLE_TO_PREDICT = 'a1p2'                        # variable to predict
 
 ##################################################################################
 # correlation:: return correlation matrix and highly correlated variables        #
@@ -91,16 +91,17 @@ def main():
     print(f'\n[Table 3]: higly correlated variables with "{VARIABLE_TO_PREDICT}" variable\n')
     print(highly_corr_predict)
 
-    # print covariance
+    # print covariance & get variables with high covariance
     highly_cov, highly_cov_predict = covariance(df)
     print('\n[Table 5]: variables with high covariance\n')
     print(highly_cov)
 
-    print(f'\n[Table 6]: variables with high covariance with {VARIABLE_TO_PREDICT}\n')
+    # print variables with high covariance against {VARIABLE_TO_PREDICT}
+    print(f'\n[Table 6]: variables with high covariance against {VARIABLE_TO_PREDICT}\n')
     print(highly_cov_predict)
 
     # create the pair plot
-    # draw_pair_plot(df)
+    draw_pair_plot(df)
 
 # call project entry poitn
 main()
