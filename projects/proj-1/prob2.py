@@ -12,15 +12,19 @@ from sklearn.ensemble import RandomForestClassifier     # random forest algorith
 from sklearn.model_selection import train_test_split    # splits database
 
 # parameters for each algorithm
-DT_DEPTH = 6                                            # decision tree depth
-RF_TREES = 11                                           # random forest trees
+DT_DEPTH = 5                                            # decision tree depth
+RF_TREES = 5                                            # random forest trees
 LR_C_VAL = .25                                          # logistic regression c value
 SVM_C_VAL = .25                                         # support vector machine c value
-KNN_NEIGHBORS = 1                                       # k-nearest neighbors neighs
+KNN_NEIGHBORS = 5                                       # k-nearest neighbors neighs
 PPN_MAX_ITERATIONS = 7                                  # perceptron max iterations
 
 # csv data file name
 FILE_NAME = 'heart1.csv'
+
+# features index
+FEATURES_END = 13                                       # end index for the features
+FEATURES_START = 0                                      # start index of the features
 
 ##################################################################################
 # print_method_header:: print method name                                        #
@@ -186,7 +190,6 @@ def k_nearest(x_trn_std, x_tst_std, y_trn, y_tst, neighs):
     print_analysis_results(len(y_tst), (y_tst != y_pred).sum(
     ), test_acc, len(y_combined), combined_samples, combined_acc)
 
-
 ##################################################################################
 # main:: project entry point                                                     #
 ##################################################################################
@@ -199,8 +202,8 @@ def main():
     numpy_df = df.to_numpy()
 
     # split the data to training & testing datasets
-    X = numpy_df[:, :13]
-    y = numpy_df[:, [13]].ravel()
+    X = numpy_df[:,:FEATURES_END]
+    y = numpy_df[:, FEATURES_END].ravel()
 
     # split the problem into train and test: 70% training and 30% test
     # random_state allows the split to be reproduced
@@ -228,7 +231,8 @@ def main():
 
     # ---------------------------------- Decision Tree
     print_method_header(4, 'decision tree')
-    decision_tree(X_train, X_test, y_train, y_test, DT_DEPTH, df.columns.values[0:13])
+    decision_tree(X_train, X_test, y_train, y_test, DT_DEPTH, 
+    df.columns.values[FEATURES_START:FEATURES_END])
 
     # ---------------------------------- Random Forest
     print_method_header(5, 'random forest')
