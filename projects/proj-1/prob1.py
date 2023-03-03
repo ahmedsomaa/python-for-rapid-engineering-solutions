@@ -84,11 +84,11 @@ def main():
     
     # print correlation & get highly correlated variables
     highly_corr, highly_corr_predict = correlation(df)
-    print('\n[Table 2]: higly correlated variables')
+    print('\n[Table 2]: highly correlated variables')
     print(highly_corr)
 
     # print higly correlated variables with {VARIABLE_TO_PREDICT}
-    print(f'\n[Table 3]: higly correlated variables with "{VARIABLE_TO_PREDICT}" variable\n')
+    print(f'\n[Table 3]: highly correlated variables with "{VARIABLE_TO_PREDICT}" variable\n')
     print(highly_corr_predict)
 
     # print covariance & get variables with high covariance
