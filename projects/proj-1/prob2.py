@@ -70,7 +70,6 @@ def perceptron(x_trn_std, x_tst_std, y_trn, y_tst, iterations):
     print_analysis_results(len(y_tst), (y_tst != y_pred).sum(
     ), test_acc, len(y_combined), combined_samples, combined_acc)
 
-
 ##################################################################################
 # logistic_regression:: perform analysis using logistic regression               #
 ##################################################################################
@@ -151,7 +150,6 @@ def decision_tree(x_trn, x_tst, y_trn, y_tst, depth, cols):
     # Then execute: open tree.dot.png
     export_graphviz(tree, out_file='tree.dot', feature_names=cols)
 
-
 ##################################################################################
 # random_forest:: perform analysis using random forest                           #
 ##################################################################################
@@ -176,7 +174,6 @@ def random_forest(x_trn, x_tst, y_trn, y_tst, trees):
     # print analysis result
     print_analysis_results(len(y_tst), (y_tst != y_pred).sum(
     ), test_acc, len(y_combined), combined_samples, combined_acc)
-
 
 ##################################################################################
 # k_nearest:: perform analysis using k-nearest neigbhors                         #
@@ -252,7 +249,6 @@ def main():
     # ---------------------------------- K-Nearest Neighbors
     print_method_header(6, 'k-nearest neighbors')
     k_nearest(X_train, X_test, y_train, y_test, KNN_NEIGHBORS)
-
 
 # call main
 main()
