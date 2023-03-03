@@ -31,7 +31,7 @@ FEATURES_START = 0                                      # start index of the fea
 ##################################################################################
 def print_method_header(num, method):
     print('\n----------------------------------------------')
-    print(f'[Method {num}] {method}')
+    print(f'[Classifier {num}] {method}')
     print('----------------------------------------------')
 
 ##################################################################################
@@ -49,6 +49,7 @@ def print_analysis_results(test_sam, test_miss, test_acc, combined_sam, combined
 # perceptron:: perform analysis using perceptron                                 #
 ##################################################################################
 def perceptron(x_trn_std, x_tst_std, y_trn, y_tst, iterations):
+    # create the classifier
     ppn = Perceptron(max_iter=iterations, tol=1e-3, eta0=0.001,
                      fit_intercept=True, random_state=0, verbose=True)
     ppn.fit(x_trn_std, y_trn)                   # do the training
@@ -60,6 +61,7 @@ def perceptron(x_trn_std, x_tst_std, y_trn, y_tst, iterations):
     X_combined_std = np.vstack((x_trn_std, x_tst_std))
     y_combined = np.hstack((y_trn, y_tst))
 
+    # we did the stack so we can see how the combination of test and train data did
     y_combined_pred = ppn.predict(X_combined_std)
     combined_samples = (y_combined != y_combined_pred).sum()
     combined_acc = accuracy_score(y_combined, y_combined_pred)
@@ -73,6 +75,7 @@ def perceptron(x_trn_std, x_tst_std, y_trn, y_tst, iterations):
 # logistic_regression:: perform analysis using logistic regression               #
 ##################################################################################
 def logistic_regression(x_trn_std, x_tst_std, y_trn, y_tst, c_val):
+    # create the classifier
     lr = LogisticRegression(C=c_val, solver='liblinear',
                             multi_class='ovr', random_state=0)
     lr.fit(x_trn_std, y_trn)                    # do the training
@@ -84,6 +87,7 @@ def logistic_regression(x_trn_std, x_tst_std, y_trn, y_tst, c_val):
     X_combined_std = np.vstack((x_trn_std, x_tst_std))
     y_combined = np.hstack((y_trn, y_tst))
 
+    # we did the stack so we can see how the combination of test and train data did
     y_combined_pred = lr.predict(X_combined_std)
     combined_samples = (y_combined != y_combined_pred).sum()
     combined_acc = accuracy_score(y_combined, y_combined_pred)
@@ -96,6 +100,7 @@ def logistic_regression(x_trn_std, x_tst_std, y_trn, y_tst, c_val):
 # support_vector_machine:: perform analysis using support vector machine         #
 ##################################################################################
 def support_vector_machine(x_trn_std, x_tst_std, y_trn, y_tst, c_val):
+    # create the classifier
     svm = SVC(kernel='linear', C=c_val, random_state=0)
     svm.fit(x_trn_std, y_trn)                   # do the training
 
@@ -106,6 +111,7 @@ def support_vector_machine(x_trn_std, x_tst_std, y_trn, y_tst, c_val):
     X_combined_std = np.vstack((x_trn_std, x_tst_std))
     y_combined = np.hstack((y_trn, y_tst))
 
+    # we did the stack so we can see how the combination of test and train data did
     y_combined_pred = svm.predict(X_combined_std)
     combined_samples = (y_combined != y_combined_pred).sum()
     combined_acc = accuracy_score(y_combined, y_combined_pred)
@@ -118,6 +124,7 @@ def support_vector_machine(x_trn_std, x_tst_std, y_trn, y_tst, c_val):
 # decision_tree:: perform analysis using decision tree                           #
 ##################################################################################
 def decision_tree(x_trn, x_tst, y_trn, y_tst, depth, cols):
+    # create the classifier
     tree = DecisionTreeClassifier(
         criterion='entropy', max_depth=depth, random_state=0)
     tree.fit(x_trn, y_trn)                      # do the training
@@ -129,6 +136,7 @@ def decision_tree(x_trn, x_tst, y_trn, y_tst, depth, cols):
     X_combined = np.vstack((x_trn, x_tst))
     y_combined = np.hstack((y_trn, y_tst))
 
+    # we did the stack so we can see how the combination of test and train data did
     y_combined_pred = tree.predict(X_combined)
     combined_samples = (y_combined != y_combined_pred).sum()
     combined_acc = accuracy_score(y_combined, y_combined_pred)
@@ -148,6 +156,7 @@ def decision_tree(x_trn, x_tst, y_trn, y_tst, depth, cols):
 # random_forest:: perform analysis using random forest                           #
 ##################################################################################
 def random_forest(x_trn, x_tst, y_trn, y_tst, trees):
+    # create the classifier
     forest = RandomForestClassifier(
         criterion='entropy', n_estimators=trees, random_state=1, n_jobs=4)
     forest.fit(x_trn, y_trn)                    # do the training
@@ -159,6 +168,7 @@ def random_forest(x_trn, x_tst, y_trn, y_tst, trees):
     X_combined = np.vstack((x_trn, x_tst))
     y_combined = np.hstack((y_trn, y_tst))
 
+    # we did the stack so we can see how the combination of test and train data did
     y_combined_pred = forest.predict(X_combined)
     combined_samples = (y_combined != y_combined_pred).sum()
     combined_acc = accuracy_score(y_combined, y_combined_pred)
@@ -172,6 +182,7 @@ def random_forest(x_trn, x_tst, y_trn, y_tst, trees):
 # k_nearest:: perform analysis using k-nearest neigbhors                         #
 ##################################################################################
 def k_nearest(x_trn_std, x_tst_std, y_trn, y_tst, neighs):
+    # create the classifier
     knn = KNeighborsClassifier(n_neighbors=neighs, p=2, metric='minkowski')
     knn.fit(x_trn_std, y_trn)                   # do the training
 
@@ -182,6 +193,7 @@ def k_nearest(x_trn_std, x_tst_std, y_trn, y_tst, neighs):
     X_combined_std = np.vstack((x_trn_std, x_tst_std))
     y_combined = np.hstack((y_trn, y_tst))
 
+    # we did the stack so we can see how the combination of test and train data did
     y_combined_pred = knn.predict(X_combined_std)
     combined_samples = (y_combined != y_combined_pred).sum()
     combined_acc = accuracy_score(y_combined, y_combined_pred)
@@ -194,7 +206,7 @@ def k_nearest(x_trn_std, x_tst_std, y_trn, y_tst, neighs):
 # main:: project entry point                                                     #
 ##################################################################################
 def main():
-    # read data file
+    # load the data set
     df = pd.read_csv(FILE_NAME)
     print(f'[info]: {FILE_NAME} was successfully read')
 
@@ -202,20 +214,19 @@ def main():
     numpy_df = df.to_numpy()
 
     # split the data to training & testing datasets
-    X = numpy_df[:,:FEATURES_END]
-    y = numpy_df[:, FEATURES_END].ravel()
+    X = numpy_df[:,:FEATURES_END]               # separate all the features
+    y = numpy_df[:, FEATURES_END].ravel()       # extract the classifications
 
     # split the problem into train and test: 70% training and 30% test
     # random_state allows the split to be reproduced
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.3, random_state=0)
 
-    # scale X by removing the mean and setting the variance to 1 on all features.
-    # mean and standard deviation may be overridden with op
-    sc = StandardScaler()
-    sc.fit(X_train)
-    X_train_std = sc.transform(X_train)
-    X_test_std = sc.transform(X_test)
+    # mean and standard deviation may be overridden with options
+    sc = StandardScaler()                       # create the standard scalar
+    sc.fit(X_train)                             # compute the required transformation
+    X_train_std = sc.transform(X_train)         # apply to the training data
+    X_test_std = sc.transform(X_test)           # and SAME transformation of test data
 
     # ---------------------------------- Perceptron
     print_method_header(1, 'perceptron')
