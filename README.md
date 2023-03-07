@@ -21,3 +21,4 @@ A repo for Arizona State University EEE 591 Python for Rapid Engineering Solutio
 2. **Projects**
 
    2.1 [Project 1](./projects/proj-1/)
+   2.2 [Project 2](./projects/proj-2/)
