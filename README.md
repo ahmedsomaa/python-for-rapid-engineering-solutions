@@ -10,16 +10,16 @@ A repo for Arizona State University EEE 591 Python for Rapid Engineering Solutio
 
 1. **Homeworks**
 
-   1.1 [Homework 1](./homeworks/hw-1/)
+   1.1 [Homework 1](./homeworks/hw-1/) - Multiple problems including: Prime Numbers Generation, Quadratic Equation Solver & Implementation of Square Root.
 
-   1.2 [Homework 2](./homeworks/hw-2/)
+   1.2 [Homework 2](./homeworks/hw-2/) - Multiple Inteagration Problems.
 
-   1.3 [Homework 3](./homeworks/hw-3/)
+   1.3 [Homework 3](./homeworks/hw-3/) - Program to solve resister network with voltage and/or current sources
 
-   1.4 [Homework 4](./homeworks/hw-4/)
+   1.4 [Homework 4](./homeworks/hw-4/) - Desktop App to calculate wealth after n years of retirenment.
 
 2. **Projects**
 
-   2.1 [Project 1](./projects/proj-1/)
-   
-   2.2 [Project 2](./projects/proj-2/)
+   2.1 [Project 1](./projects/proj-1/) - AMAPE Heart Disease Analysis.
+
+   2.2 [Project 2](./projects/proj-2/) - Machine Learning Mine VS. Rock.
