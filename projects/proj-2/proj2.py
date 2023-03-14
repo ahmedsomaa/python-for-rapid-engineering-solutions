@@ -12,13 +12,16 @@ from sklearn.model_selection import train_test_split    # splits database
 # csv data file name
 FILE_NAME = 'sonar_all_data_2.csv'
 
-# MLP Classifier params
-MAX_RANDOM_STATE = 5
-
 # features index
 N_COMPONENTS = 62               # number of file components
 N_FEATURES = N_COMPONENTS - 2   # number of features to use
 RANGE_END = N_FEATURES + 1      # add one to include feature 60 in range
+
+##################################################################################
+# print_line:: print the following +------------+----------+ to screen           #
+##################################################################################
+def print_line():
+    print('+------------+----------+')
 
 ##################################################################################
 # pca_analysis:: perform PCA analysis using MLPClassifier                        #
@@ -27,6 +30,9 @@ def pca_analysis(x_trn_sd, x_tst_sd, y_trn, y_tst):
     acc = []        # initial accuracy list
     confuse = []    # initial confusion matrix
     # loop on all components
+    print_line()
+    print('| Components | Accuracy |')
+    print_line()
     for n_comps in range(1, RANGE_END):
         # apply principal component analysis
         pca = PCA(n_components=n_comps)
@@ -34,9 +40,9 @@ def pca_analysis(x_trn_sd, x_tst_sd, y_trn, y_tst):
         X_test_pca = pca.transform(x_tst_sd)  # do the same to the test data
 
         # now create a multilayer perceptron and train on it
-        mlp = MLPClassifier(hidden_layer_sizes=(100), activation='logistic',
-                            max_iter=2000, alpha=.00001, solver='adam',  tol=.0001, 
-                            random_state=MAX_RANDOM_STATE)
+        mlp = MLPClassifier(hidden_layer_sizes=(200, 100), activation='relu',
+                            max_iter=200, alpha=.0001, solver='adam',  tol=.001, 
+                            learning_rate='constant', random_state=1)
         mlp.fit(X_train_pca, y_trn)                   # do the training
 
         y_pred = mlp.predict(X_test_pca)    # now try with the test data
@@ -49,7 +55,10 @@ def pca_analysis(x_trn_sd, x_tst_sd, y_trn, y_tst):
         confuse.append(confusion_matrix(y_tst, y_pred))
 
         # print #of components and accuracy
-        print(f'n_components = {n_comps}, test accuracy = {round(accuracy, 2)}')
+        
+        print(f'| {n_comps: <{10}} | {round(accuracy, 2): <{8}} |')
+        print_line()
+        # print(f'n_components = {n_comps}, test accuracy = {round(accuracy, 2)}')
     return acc, confuse
 
 ##################################################################################
@@ -60,7 +69,7 @@ def plot_accuracy_vs_ncopms(n_comps, scores):
     plt.xlabel('Number of Components')
     plt.ylabel('Test Accuracy')
     plt.title('Machine Learning Mine Versus Rock')
-    plt.legend()
+    plt.legend(loc='lower right')
     plt.show()
 
 ##################################################################################
