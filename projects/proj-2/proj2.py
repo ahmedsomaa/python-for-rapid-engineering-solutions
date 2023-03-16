@@ -65,7 +65,7 @@ def pca_analysis(x_trn_sd, x_tst_sd, y_trn, y_tst):
 # plot_accuracy_vs_ncomps:: plot accuracies vs number of componenets             #
 ##################################################################################
 def plot_accuracy_vs_ncopms(n_comps, scores):
-    plt.plot(n_comps, scores, label='Test Accuracy')
+    plt.plot(n_comps, scores, label='Test Accuracy', marker='x')
     plt.xlabel('Number of Components')
     plt.ylabel('Test Accuracy')
     plt.title('Machine Learning Mine Versus Rock')
