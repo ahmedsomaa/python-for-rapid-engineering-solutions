@@ -55,10 +55,8 @@ def pca_analysis(x_trn_sd, x_tst_sd, y_trn, y_tst):
         confuse.append(confusion_matrix(y_tst, y_pred))
 
         # print #of components and accuracy
-        
         print(f'| {n_comps: <{10}} | {round(accuracy, 2): <{8}} |')
         print_line()
-        # print(f'n_components = {n_comps}, test accuracy = {round(accuracy, 2)}')
     return acc, confuse
 
 ##################################################################################
