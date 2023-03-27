@@ -25,7 +25,7 @@ T2 = 375                # temperature
 # unknown parameters initial guess
 opt_n = 1.5             # optimal ideality initial guess
 opt_r = 10000           # optimal resistor optimal guess
-opt_phi = 0.8           # optimal barrier height initial guess 
+opt_phi = 0.8           # optimal barrier height initial guess
 vd_init = 0.1           # diode voltage initial guess
 
 ##################################################################################
@@ -59,8 +59,10 @@ def diode1_nodal(Vd, Vs):
 ##################################################################################
 def diode1_plot(log_diode_curr, source_volt, diode_volt):
     plt.title('Problem 1 Plot')
-    plt.plot(source_volt, log_diode_curr, label='log(Diode Current) vs Source Voltage')
-    plt.plot(diode_volt, log_diode_curr, label='log(Diode Current) vs Diode Voltage')
+    plt.plot(source_volt, log_diode_curr,
+             label='log(Diode Current) vs Source Voltage')
+    plt.plot(diode_volt, log_diode_curr,
+             label='log(Diode Current) vs Diode Voltage')
     plt.xlabel('Voltage (volt)')
     plt.ylabel('Diode current (log scale)')
     plt.legend(loc='lower right')
@@ -93,43 +95,46 @@ def solve_diode2_current(area, phi_value, r_value, ide_value, temp, src_v):
 
     # calculate diode voltage for every given voltage by solving nodal analysis
     for i in range(len(src_v)):
-        vd_guess = fsolve(diode2_nodal, vd_guess, 
-        args=(src_v[i], r_value, ide_value, temp, sat_i), xtol=1e-12)[0]
+        vd_guess = fsolve(diode2_nodal, vd_guess,
+                          args=(src_v[i], r_value, ide_value, temp, sat_i), xtol=1e-12)[0]
 
         # append it to diode volt array
         diode_volt_est[i] = vd_guess
 
     # compute diode current
     vt = (ide_value * K * temp) / Q
-    diode_curr = sat_i * (np.exp(diode_volt_est/ vt) - 1)
+    diode_curr = sat_i * (np.exp(diode_volt_est / vt) - 1)
     return diode_curr
 
 ##################################################################################
-# opt_r:: optimization for the resistor                                          #
+# optimize_r:: optimization for the resistor                                     #
 ##################################################################################
 def optimize_r(r_value, phi_value, ide_value, area, temp, src_v, meas_i):
     # compute diode current using optimized params
-    diode_curr = solve_diode2_current(area, phi_value, r_value, ide_value, temp, src_v)
+    diode_curr = solve_diode2_current(
+        area, phi_value, r_value, ide_value, temp, src_v)
 
     # return absolute error
     return diode_curr - meas_i
 
 ##################################################################################
-# opt_phi:: optimization for the barrier height                                  #
+# optimize_phi:: optimization for the barrier height                             #
 ##################################################################################
 def optimize_phi(phi_value, r_value, ide_value, area, temp, src_v, meas_i):
     # compute diode current using optimized params
-    diode_curr = solve_diode2_current(area, phi_value, r_value, ide_value, temp, src_v)
+    diode_curr = solve_diode2_current(
+        area, phi_value, r_value, ide_value, temp, src_v)
 
     # return absolute error
     return (diode_curr - meas_i) / (diode_curr + meas_i + NORM_CONST)
 
 ##################################################################################
-# opt_n:: optimization for the ideality                                          #
+# optimize_n:: optimization for the ideality                                     #
 ##################################################################################
 def optimize_n(ide_value, r_value, phi_value, area, temp, src_v, meas_i):
     # compute diode current using optimized params
-    diode_curr = solve_diode2_current(area, phi_value, r_value, ide_value, temp, src_v)
+    diode_curr = solve_diode2_current(
+        area, phi_value, r_value, ide_value, temp, src_v)
 
     # return absolute error
     return (diode_curr - meas_i) / (diode_curr + meas_i + NORM_CONST)
@@ -143,18 +148,21 @@ def diode2_plot(src_v, meas_i, pred_i):
     ax.set_title('Problem 2 Plot')
     ax.set_xlabel('Voltage (volts)')
     ax.set_ylabel('Measure Current (log scale)', c='tab:blue')
-    ax.plot(src_v, np.log10(meas_i), marker='o', markerfacecolor='tab:blue', c='tab:blue', label='log(Diode Current) vs Source Voltage')
+    ax.plot(src_v, np.log10(meas_i), marker='o', markerfacecolor='tab:blue',
+            c='tab:blue', label='log(Diode Current) vs Source Voltage')
     ax.tick_params(axis='y', labelcolor='tab:blue')
     plt.grid()
 
     ax2 = ax.twinx()
     ax2.set_ylabel('Predicted Current (log scale)', c='tab:orange')
-    ax2.plot(src_v, np.log10(pred_i), marker='+', markerfacecolor='tab:orange', c='tab:orange', label="log(Predicted Current) cs Source Voltage")
+    ax2.plot(src_v, np.log10(pred_i), marker='+', markerfacecolor='tab:orange',
+             c='tab:orange', label="log(Predicted Current) cs Source Voltage")
     ax2.tick_params(axis='y', labelcolor='tab:orange')
 
     fig.tight_layout()
     plt.grid()
     plt.show()
+
 
 # --------------------------------------------------------------- Project Starts Here
 # ignore the warnings generated by leastsq operations
@@ -204,7 +212,8 @@ iters = 0
 curr_pred = solve_diode2_current(A, opt_phi, opt_r, opt_n, T2, src_volt)
 
 # compute normalized error
-norm_err = np.linalg.norm((curr_pred - curr_meas) / (curr_pred + curr_meas + NORM_CONST), ord=1)
+norm_err = np.linalg.norm((curr_pred - curr_meas) /
+                          (curr_pred + curr_meas + NORM_CONST), ord=1)
 
 # prepare table header for iterations, opt_r, opt_phi, opt_n & normalized error
 print('\nIterations & residual errors table')
@@ -217,19 +226,23 @@ while (norm_err > MAX_TOLERANCE and iters < MAX_ITERATIONS):
     iters += 1
 
     # optimize resistance
-    opt_r = leastsq(optimize_r, opt_r, args=(opt_phi, opt_n, A, T2, src_volt, curr_meas))[0][0]
+    opt_r = leastsq(optimize_r, opt_r, args=(
+        opt_phi, opt_n, A, T2, src_volt, curr_meas))[0][0]
 
     # optimize barrier height
-    opt_phi = leastsq(optimize_phi, opt_phi, args=(opt_r, opt_n, A, T2, src_volt, curr_meas))[0][0]
+    opt_phi = leastsq(optimize_phi, opt_phi, args=(
+        opt_r, opt_n, A, T2, src_volt, curr_meas))[0][0]
 
     # optimize ideality
-    opt_n = leastsq(optimize_n, opt_n, args=(opt_r, opt_phi, A, T2, src_volt, curr_meas))[0][0]
+    opt_n = leastsq(optimize_n, opt_n, args=(
+        opt_r, opt_phi, A, T2, src_volt, curr_meas))[0][0]
 
     # compute diode current
     curr_pred = solve_diode2_current(A, opt_phi, opt_r, opt_n, T2, src_volt)
 
     # compute normalized error
-    norm_err = np.linalg.norm((curr_pred - curr_meas) / (curr_pred + curr_meas + NORM_CONST), ord=1)
+    norm_err = np.linalg.norm(
+        (curr_pred - curr_meas) / (curr_pred + curr_meas + NORM_CONST), ord=1)
 
     # print iterations, opt_r, opt_phi, opt_n & normalized error
     print(f'| {iters: <{10}} | {opt_r: <{19}} | {opt_phi: <{19}} | {opt_n: <{19}} | {norm_err: <{23}} |')
