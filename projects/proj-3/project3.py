@@ -160,6 +160,7 @@ def diode2_plot(src_v, meas_i, pred_i):
     ax2.tick_params(axis='y', labelcolor='tab:orange')
 
     fig.tight_layout()
+    fig.legend()
     plt.grid()
     plt.show()
 
