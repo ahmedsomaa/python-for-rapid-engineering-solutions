@@ -89,7 +89,7 @@ def main():
             # prepare netlist hspice file for each fan & #of inverters
             prepare_simulation_input(netlist, fan, inv)
 
-            # run hspace simulation
+            # run hspice simulation
             run_hspice()
 
             # make sure output file is ready
