@@ -103,11 +103,13 @@ def main():
             print(f'| {fan: <{3}} | {inv: <{3}} | {tphl: <{10}} |')
             print('+-----+-----+------------+')
 
+            # find the min delay, optimal fan & num of inverters
             if (tphl < min_delay):
                 min_delay = tphl
                 optimal_fan = fan
                 optimal_N = inv
     
+    # print min_delay & optimal fan & num of inverters
     print('\nBest values were:')
     print(f'fan = {optimal_fan}')
     print(f'num_inverters = {optimal_N}')
