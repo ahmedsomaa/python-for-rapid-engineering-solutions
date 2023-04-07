@@ -2,10 +2,9 @@ import numpy as np      # package needed to read the results file
 import subprocess       # package needed to lauch hspice
 import os               # package needed to make sure file exists
 
-
+# global constants
 MAX_FAN = 8     # max value for fan 
 MAX_INV = 12    # max value for number of ineverters
-
 INPUT_FILE_NAME = 'InvChainTemp.sp'     # input filename
 OUTPUT_FILE_NAME = 'InvChain.mt0.csv'   # output filename
 HSPICE_INPUT_FILE_NAME = 'InvChain.sp'  # file to use in hspice simulation
