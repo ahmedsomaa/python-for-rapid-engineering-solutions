@@ -1,9 +1,3 @@
-################################################################################
-# Project 4                                                                    #
-# Ahmed Abu Qahf                                                               #
-# Run hspice to determine the tphl of a circuit                                #
-################################################################################
-
 import numpy as np      # package needed to read the results file
 import subprocess       # package needed to lauch hspice
 import os               # package needed to make sure file exists
