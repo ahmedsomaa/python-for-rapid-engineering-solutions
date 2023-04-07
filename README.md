@@ -23,3 +23,7 @@ A repo for Arizona State University EEE 591 Python for Rapid Engineering Solutio
    2.1 [Project 1](./projects/proj-1/) - AMAPE Heart Disease Analysis.
 
    2.2 [Project 2](./projects/proj-2/) - Machine Learning Mine VS. Rock.
+
+   2.3 [Project 3](./projects/proj-3/) - Dionde NonLinear.
+
+   2.4 [Project 4](./projects/proj-4/) - Driving a Tool from Python.
