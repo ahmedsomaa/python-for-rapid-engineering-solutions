@@ -49,7 +49,7 @@ def prepare_simulation_input(netlist, fan, N):
             # increase current node char ASCII code
             start += 1
         # add last inverter
-        netlist += f'Xinv{N} {chr(start+1)} z inv M=fan**{N}\n'
+        netlist += f'Xinv{N} {chr(start+1)} z inv M=fan**{N-1}\n'
     # end netlist
     netlist += '.end'
 
