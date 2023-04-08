@@ -5,7 +5,7 @@ import os               # package needed to make sure file exists
 # global constants
 MAX_FAN = 8     # max value for fan 
 MAX_INV = 12    # max value for number of ineverters
-INPUT_FILE_NAME = 'InvChainTemp.sp'     # input filename
+INPUT_FILE_NAME = 'header.sp'           # initial input filename
 OUTPUT_FILE_NAME = 'InvChain.mt0.csv'   # output filename
 HSPICE_INPUT_FILE_NAME = 'InvChain.sp'  # file to use in hspice simulation
 
@@ -34,7 +34,7 @@ def prepare_simulation_input(netlist, fan, N):
     # add .param line to hspice file
     netlist += f'\n\n.param fan = {fan}\n'
 
-    # add inverters
+    # add rest of inverters inverter
     # if one inverter, just add from a -> z
     if (N == 1):
         netlist += 'Xinv1 a z inv M=1\n'
@@ -51,7 +51,7 @@ def prepare_simulation_input(netlist, fan, N):
         # add last inverter
         netlist += f'Xinv{N} {chr(start+1)} z inv M=fan**{N-1}\n'
     # end netlist
-    netlist += '.end'
+    netlist += '.end\n'
 
     # write netlist to file
     file = open(HSPICE_INPUT_FILE_NAME, 'w')
@@ -81,11 +81,8 @@ def main():
     netlist = read_netlist()
 
     # loop over fan & inverters combinations
-    print('+-----+-----+------------+')
-    print('| Fan | N   | tphl       |')
-    print('+-----+-----+------------+')
-    for fan in fan_list:
-        for inv in inv_list:
+    for inv in inv_list:
+        for fan in fan_list:
             # prepare netlist hspice file for each fan & #of inverters
             prepare_simulation_input(netlist, fan, inv)
 
@@ -100,8 +97,7 @@ def main():
             # output file is ready, extract tphl
             tphl = extract_tphl()
 
-            print(f'| {fan: <{3}} | {inv: <{3}} | {tphl: <{10}} |')
-            print('+-----+-----+------------+')
+            print(f'N {inv: <{2}} fan {fan: <{1}} tphl {tphl: <{10}}')
 
             # find the min delay, optimal fan & num of inverters
             if (tphl < min_delay):
@@ -111,9 +107,9 @@ def main():
     
     # print min_delay & optimal fan & num of inverters
     print('\nBest values were:')
-    print(f'fan = {optimal_fan}')
-    print(f'num_inverters = {optimal_N}')
-    print(f'tphl = {min_delay}')
+    print(f'\tfan = {optimal_fan}')
+    print(f'\tnum_inverters = {optimal_N}')
+    print(f'\ttphl = {min_delay}')
 
 # start app
 main()
