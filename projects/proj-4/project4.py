@@ -64,9 +64,9 @@ def read_netlist():
     file = open(INPUT_FILE_NAME, 'r')
     return file.read()
 
-##################################################################################
-# main:: project entry point                                                     #
-##################################################################################
+################################################################################
+# main:: project entry point                                                   #
+################################################################################
 def main():
     # create fan list & num of inverters list
     fan_list = [fan for fan in range(2, MAX_FAN)]                   # fan list
