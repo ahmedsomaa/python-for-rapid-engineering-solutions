@@ -1,4 +1,3 @@
-
 ################################################################################
 # Function my_sqrt calculates root of a number using Babylonian method         #
 # inputs:                                                                      #
