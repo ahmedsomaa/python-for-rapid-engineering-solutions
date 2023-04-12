@@ -7,8 +7,8 @@ from scipy.integrate import odeint  # for solving ordinary differential equation
 ##################################################################################
 def plot_solution(time, sol, title):
     plt.plot(time, sol)
-    plt.xlabel('t')
-    plt.ylabel('y')
+    plt.xlabel('t values')
+    plt.ylabel('y values')
     plt.title(title)
     plt.show()
 
@@ -37,8 +37,16 @@ def problem1_sol():
     y_init = 1
     time = time_range()
     solution = odeint(ode1, y_init, time)
-    print(f"Solution of y'=cos(t) with y(0)=1 is: {solution}")
     plot_solution(time, solution, "Solution of y'=cos(t) with y(0)=1")
+
+##################################################################################
+# problem2_sol:: second problem solver                                           #
+##################################################################################
+def problem2_sol():
+    y_init = 0
+    time = time_range()
+    solution = odeint(ode2, y_init, time)
+    plot_solution(time, solution, "Solution of y'=-y+t^2e^-2t+10 with y(0)=0")
 
 ##################################################################################
 # main:: project entry point                                                     #
@@ -46,6 +54,9 @@ def problem1_sol():
 def main():
     # solve 1st problem
     problem1_sol()
+
+    # solve 2nd problem
+    problem2_sol()
 
 # call main
 main()
