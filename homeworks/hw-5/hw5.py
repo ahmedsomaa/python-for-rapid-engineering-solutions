@@ -19,10 +19,16 @@ def time_range():
     return np.linspace(0, 7, 700)
 
 ##################################################################################
-# ode_first:: y' = cos(t)                                                        #
+# ode1:: y' = cos(t)                                                        #
 ##################################################################################
-def ode_first(y, t):
+def ode1(y, t):
     return np.cos(t)
+
+##################################################################################
+# ode2:: y' = -y+t^2e^-2t+10                                                     #
+##################################################################################
+def ode2(y, t):
+    return -y + t**2 * np.exp(-2*t) + 10
 
 ##################################################################################
 # problem1_sol:: first problem solver                                            #
@@ -30,7 +36,7 @@ def ode_first(y, t):
 def problem1_sol():
     y_init = 1
     time = time_range()
-    solution = odeint(ode_first, y_init, time)
+    solution = odeint(ode1, y_init, time)
     print(f"Solution of y'=cos(t) with y(0)=1 is: {solution}")
     plot_solution(time, solution, "Solution of y'=cos(t) with y(0)=1")
 
