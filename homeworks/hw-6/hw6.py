@@ -36,23 +36,23 @@ def main():
         pi_val = 0              # init the value of pi
 
         for _ in range(TRIALS):
-            points_num = 0      # init number of total points
-            points_inside = 0   # init number of total points inside circel
+            trials = 0      # init number of trials
+            inside = 0   # init number of total points inside
 
-            while points_num < MAXIMUM_POINTS:
+            while trials < MAXIMUM_POINTS:
                 # generate random value for r
                 r = generate_r()
 
                 # check if r is inside the circle or not
                 if (r <= 1):
-                    points_inside += 1      # increment number of points inside
+                    inside += 1      # increment number of points inside
 
-                points_num += 1
+                trials += 1
 
                 # check if we achieved the precision
-                if abs(4*points_inside/points_num - np.pi) < precision:
+                if abs(4*inside/trials - np.pi) < precision:
                     success_attemps += 1
-                    pi_val += 4*points_inside/points_num
+                    pi_val += 4*inside/trials
                     break
 
         # print results
