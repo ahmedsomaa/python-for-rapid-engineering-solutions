@@ -2,9 +2,9 @@ import random           # to generate random points
 import numpy as np      # to compute the distance of each point from the origin
 
 #------------------------------------------------ global constants
-TRIALS = 100                                    # Number of trials per precision
-PRECISIONS = [10**(-i) for i in range(1, 8)]    # List of precisions to try
-MAXIMUM_POINTS = 10000                          # Maximum number of points to use
+TRIALS = 100                                    # number of trials per precision
+PRECISIONS = [10**(-i) for i in range(1, 8)]    # list of precisions to try powers of 10 from 10-1 to 10-7
+MAXIMUM_POINTS = 10000                          # maximum number of points to use
 
 ################################################################################
 # generate_r:: generates random value for r                                    #
