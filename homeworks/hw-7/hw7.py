@@ -4,7 +4,6 @@ from sklearn.svm import SVC                             # support vector algorit
 from sklearn.tree import export_graphviz                # cool graph
 from sklearn.metrics import accuracy_score              # grade the results
 from sklearn.linear_model import Perceptron             # perceptron algorithm
-from sklearn.ensemble import VotingClassifier           # ensemble learning
 from sklearn.tree import DecisionTreeClassifier         # decision tree algorithm
 from sklearn.preprocessing import StandardScaler        # standarize data
 from sklearn.neighbors import KNeighborsClassifier      # knn algorithm
@@ -213,27 +212,6 @@ def k_nearest(x_trn_std, x_tst_std, y_trn, y_tst, neighs):
     return test_acc, knn
 
 ##################################################################################
-# ensemble_learning:: perform ensemble learning with n estimatros                #
-##################################################################################
-def ensemble_learning(x_trn, x_tst, y_trn, y_tst, estimators):
-    methods = len(estimators)
-    voting = VotingClassifier(estimators, voting='hard', verbose=False)
-    voting.fit(x_trn, y_trn)                      # do the training
-
-    y_pred = voting.predict(x_tst)
-    accuracy = accuracy_score(y_tst, y_pred)
-
-    print(f'\n\nEnsemble with {methods} methods:', accuracy)
-
-    if methods == 4:
-        if accuracy == 0.85:
-            print('Ties counted as Yes')
-        else:
-            print('Ties counted as No')
-    
-
-
-##################################################################################
 # main:: project entry point                                                     #
 ##################################################################################
 def main():
@@ -292,18 +270,6 @@ def main():
     print('Decision Tree Accuracy:', round(dt_acc, 2))
     print('Random Forest Accuracy:', round(rf_acc, 2))
     print('K-Nearest Neighbors Accuracy:', round(knn_acc, 2))
-
-    # 3 methods
-    estimators = [('svm', svm_clf), ('lr', lr_clf), ('ppn', ppn_clf)]
-    ensemble_learning(X_train, X_test, y_train, y_test, estimators)
-
-    # 4 methods
-    estimators = [('svm', svm_clf), ('lr', lr_clf), ('ppn', ppn_clf), ('rf', rf_clf)]
-    ensemble_learning(X_train, X_test, y_train, y_test, estimators)
-
-    # 5 methods
-    estimators = [('svm', svm_clf), ('lr', lr_clf), ('ppn', ppn_clf), ('rf', rf_clf), ('dt', dt_clf)]
-    ensemble_learning(X_train, X_test, y_train, y_test, estimators)
 
 # call main
 main()
