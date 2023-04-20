@@ -262,14 +262,31 @@ def main():
     print_method_header(6, 'k-nearest neighbors')
     knn_acc, knn_pred = k_nearest(X_train, X_test, y_train, y_test, KNN_NEIGHBORS)
 
-    # ---------------------------------- Ensemble Learning with 3
-    # the 3 methods with the highest test accuracy are SVM, LR & PPN
-    print('\nPerceptron Accuracy:', round(ppn_acc, 2))
+    # ---------------------------------- Ensemble Learning Part
+    print('\n----------------------------------------------')
+    print(f'Classifiers Accuracies')
+    print('----------------------------------------------')
+    print('Perceptron Accuracy:', round(ppn_acc, 2))
     print('Logistic Regression Accuracy:', round(lr_acc, 2))
     print('Support Vector Machine Accuracy:', round(svm_acc, 2))
     print('Decision Tree Accuracy:', round(dt_acc, 2))
     print('Random Forest Accuracy:', round(rf_acc, 2))
     print('K-Nearest Neighbors Accuracy:', round(knn_acc, 2))
+
+    # add classifiers accuracy & y_pred in a tuple list
+    classifiers = [(ppn_acc, ppn_pred), (lr_acc, lr_pred), (svm_acc, svm_pred), 
+    (dt_acc, dt_pred), (rf_acc, rf_pred), (knn_acc, knn_pred)]
+
+    # sort list by highest accuracy
+    classifiers.sort(key= lambda a: a[0], reverse=True)
+
+    # ---------------------------------- Ensemble Learning with 3
+    threshold = 2.5 # threshold for 3 methods
+    sum_of_methods = classifiers[0][1] + classifiers[1][1] + classifiers[2][1]  # add the highest thress methods
+    ensemble3_pred = np.where(sum_of_methods > threshold, 2, 1) # do the predicition
+    ensemble3_accu = accuracy_score(y_test, ensemble3_pred) # find the score
+    print("Ensemble with Three Methods Accuracy:", round(ensemble3_accu, 2)) # print the score
+
 
 # call main
 main()
