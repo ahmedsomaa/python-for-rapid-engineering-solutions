@@ -70,7 +70,7 @@ def perceptron(x_trn_std, x_tst_std, y_trn, y_tst, iterations):
     print_analysis_results(len(y_tst), (y_tst != y_pred).sum(
     ), test_acc, len(y_combined), combined_samples, combined_acc)
 
-    return test_acc, ppn
+    return test_acc, y_pred
 
 ##################################################################################
 # logistic_regression:: perform analysis using logistic regression               #
@@ -97,7 +97,7 @@ def logistic_regression(x_trn_std, x_tst_std, y_trn, y_tst, c_val):
     print_analysis_results(len(y_tst), (y_tst != y_pred).sum(
     ), test_acc, len(y_combined), combined_samples, combined_acc)
 
-    return test_acc, lr
+    return test_acc, y_pred
 
 ##################################################################################
 # support_vector_machine:: perform analysis using support vector machine         #
@@ -123,7 +123,7 @@ def support_vector_machine(x_trn_std, x_tst_std, y_trn, y_tst, c_val):
     print_analysis_results(len(y_tst), (y_tst != y_pred).sum(
     ), test_acc, len(y_combined), combined_samples, combined_acc)
     
-    return test_acc, svm
+    return test_acc, y_pred
 
 ##################################################################################
 # decision_tree:: perform analysis using decision tree                           #
@@ -156,7 +156,7 @@ def decision_tree(x_trn, x_tst, y_trn, y_tst, depth, cols):
     # Then execute: open tree.dot.png
     export_graphviz(tree, out_file='tree.dot', feature_names=cols)
 
-    return test_acc, tree
+    return test_acc, y_pred
 
 ##################################################################################
 # random_forest:: perform analysis using random forest                           #
@@ -183,7 +183,7 @@ def random_forest(x_trn, x_tst, y_trn, y_tst, trees):
     print_analysis_results(len(y_tst), (y_tst != y_pred).sum(
     ), test_acc, len(y_combined), combined_samples, combined_acc)
 
-    return test_acc, forest
+    return test_acc, y_pred
 
 ##################################################################################
 # k_nearest:: perform analysis using k-nearest neigbhors                         #
@@ -209,7 +209,7 @@ def k_nearest(x_trn_std, x_tst_std, y_trn, y_tst, neighs):
     print_analysis_results(len(y_tst), (y_tst != y_pred).sum(
     ), test_acc, len(y_combined), combined_samples, combined_acc)
 
-    return test_acc, knn
+    return test_acc, y_pred
 
 ##################################################################################
 # main:: project entry point                                                     #
@@ -239,28 +239,28 @@ def main():
 
     # ---------------------------------- Perceptron
     print_method_header(1, 'perceptron')
-    ppn_acc, ppn_clf = perceptron(X_train_std, X_test_std, y_train, y_test, PPN_MAX_ITERATIONS)
+    ppn_acc, ppn_pred = perceptron(X_train_std, X_test_std, y_train, y_test, PPN_MAX_ITERATIONS)
 
     # ---------------------------------- Logistic Regression
     print_method_header(2, 'logistic regression')
-    lr_acc, lr_clf = logistic_regression(X_train_std, X_test_std, y_train, y_test, LR_C_VAL)
+    lr_acc, lr_pred = logistic_regression(X_train_std, X_test_std, y_train, y_test, LR_C_VAL)
 
     # ---------------------------------- Support Vector Machine
     print_method_header(3, 'support vector machine')
-    svm_acc, svm_clf = support_vector_machine(X_train_std, X_test_std, y_train, y_test, SVM_C_VAL)
+    svm_acc, svm_pred = support_vector_machine(X_train_std, X_test_std, y_train, y_test, SVM_C_VAL)
 
     # ---------------------------------- Decision Tree
     print_method_header(4, 'decision tree')
-    dt_acc, dt_clf = decision_tree(X_train, X_test, y_train, y_test, DT_DEPTH, 
+    dt_acc, dt_pred = decision_tree(X_train, X_test, y_train, y_test, DT_DEPTH, 
     df.columns.values[FEATURES_START:FEATURES_END])
 
     # ---------------------------------- Random Forest
     print_method_header(5, 'random forest')
-    rf_acc, rf_clf = random_forest(X_train, X_test, y_train, y_test, RF_TREES)
+    rf_acc, rf_pred = random_forest(X_train, X_test, y_train, y_test, RF_TREES)
 
     # ---------------------------------- K-Nearest Neighbors
     print_method_header(6, 'k-nearest neighbors')
-    knn_acc, knn_clf = k_nearest(X_train, X_test, y_train, y_test, KNN_NEIGHBORS)
+    knn_acc, knn_pred = k_nearest(X_train, X_test, y_train, y_test, KNN_NEIGHBORS)
 
     # ---------------------------------- Ensemble Learning with 3
     # the 3 methods with the highest test accuracy are SVM, LR & PPN
