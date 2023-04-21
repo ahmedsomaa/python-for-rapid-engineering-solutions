@@ -294,10 +294,10 @@ def main():
     threshold = 6   # threshold for 4 methods
     ties_counted = False    # to check whether ties where counted as Yes or No
     sum_of_methods += classifiers[3][1] # add the 4th method
-    if (sum_of_methods.sum() >= (2 * sum_of_methods.size)): # ties count as a 'Yes'
+    if (sum_of_methods.sum() >= (2 * sum_of_methods.size)): # ties count as Yes
         ties_counted = True
         ensemble4_pred = np.where(sum_of_methods >= threshold, 2, 1)
-    else:   # ties count as a 'No'
+    else:   # ties count as No
         ties_counted = False
         ensemble4_pred = np.where(sum_of_methods > threshold, 2, 1)
     ensemble4_accu = accuracy_score(y_test, ensemble4_pred)
