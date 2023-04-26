@@ -302,7 +302,7 @@ def main():
         ensemble4_pred = np.where(sum_of_methods > threshold, 2, 1)
     ensemble4_accu = accuracy_score(y_test, ensemble4_pred)
     print('Ensemble with 4 Methods Accuracy:', round(ensemble4_accu, 2)) # print the score
-    print('Ties counted as', 'Yes' if ties_counted else 'No')
+    print('Ties counted as', 'Yes' if ties_counted else 'No')   # print if ties were counted Yes or No
 
     # ---------------------------------- Ensemble Learning with 5 Methods
     threshold = 7.5 # threshold for 5 methods
